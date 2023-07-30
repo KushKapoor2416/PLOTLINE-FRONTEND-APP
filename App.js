@@ -18,6 +18,7 @@ const App = () => {
       gap: "10px",
       background: "#FFFFFF",
       color: "#000000",
+      "data-tooltip": "Tooltip for Button 1",
     },
     button2: {
       fontFamily: "Barlow",
@@ -33,6 +34,7 @@ const App = () => {
       gap: "10px",
       background: "#FFFFFF",
       color: "#000000",
+      "data-tooltip": "Tooltip for Button 2",
     },
     button3: {
       fontFamily: "Barlow",
@@ -48,6 +50,7 @@ const App = () => {
       gap: "10px",
       background: "#FFFFFF",
       color: "#000000",
+      "data-tooltip": "Tooltip for Button 3",
     },
     button4: {
       fontFamily: "Barlow",
@@ -63,6 +66,7 @@ const App = () => {
       gap: "10px",
       background: "#FFFFFF",
       color: "#000000",
+      "data-tooltip": "Tooltip for Button 4",
     },
     button5: {
       fontFamily: "Barlow",
@@ -78,11 +82,12 @@ const App = () => {
       gap: "10px",
       background: "#FFFFFF",
       color: "#000000",
+      "data-tooltip": "Tooltip for Button 5",
     },
   });
 
   const [targetElement, setTargetElement] = useState("button3");
-  const [tooltipText, setTooltipText] = useState("Tooltip for Button 3");
+  const [tooltipText, setTooltipText] = useState(buttonStyles["button3"]["data-tooltip"]);
   const [textSize, setTextSize] = useState("16px");
   const [padding, setPadding] = useState("8px");
   const [textColor, setTextColor] = useState("#000000");
@@ -93,10 +98,10 @@ const App = () => {
   const [arrowHeight, setArrowHeight] = useState("");
 
   useEffect(() => {
-    setButtonStyles({
-      ...buttonStyles,
+    setButtonStyles((prevStyles) => ({
+      ...prevStyles,
       [targetElement]: {
-        ...buttonStyles[targetElement],
+        ...prevStyles[targetElement],
         fontSize: textSize,
         padding: padding,
         color: textColor,
@@ -105,9 +110,19 @@ const App = () => {
         width: "73px",
         height: "34px",
       },
-    });
+    }));
     setTooltipText(buttonStyles[targetElement]["data-tooltip"]);
-  }, [targetElement, textSize, padding, textColor, backgroundColor, cornerRadius, tooltipWidth, arrowHeight, buttonStyles]);
+  }, [
+    targetElement,
+    textSize,
+    padding,
+    textColor,
+    backgroundColor,
+    cornerRadius,
+    tooltipWidth,
+    arrowHeight,
+    buttonStyles,
+  ]);
 
   const handleButtonClick = () => {
     console.log("Button clicked!");
@@ -120,6 +135,13 @@ const App = () => {
         break;
       case "tooltipText":
         setTooltipText(value);
+        setButtonStyles((prevStyles) => ({
+          ...prevStyles,
+          [targetElement]: {
+            ...prevStyles[targetElement],
+            "data-tooltip": value,
+          },
+        }));
         break;
       case "textSize":
         setTextSize(value);
@@ -175,4 +197,3 @@ const App = () => {
 };
 
 export default App;
-
