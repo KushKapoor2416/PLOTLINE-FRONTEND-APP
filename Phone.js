@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
-const Phone = ({ buttonStyles, targetElement, handleButtonClick, tooltipWidth, arrowWidth, arrowHeight }) => {
+const Phone = ({ buttonStyles, targetElement, handleButtonClick }) => {
   const [tooltipText, setTooltipText] = useState("");
   const [tooltipVisible, setTooltipVisible] = useState(false);
-  const [tooltipWidthState, setTooltipWidth] = useState(tooltipWidth);
-  const [arrowWidthState, setArrowWidth] = useState(arrowWidth);
-  const [arrowHeightState, setArrowHeight] = useState(arrowHeight);
+  const [tooltipWidth, setTooltipWidth] = useState("181px");
+  const [arrowWidth, setArrowWidth] = useState("5px");
+  const [arrowHeight, setArrowHeight] = useState("5px");
 
   const handleButtonHover = () => {
     setTooltipVisible(true);
@@ -23,7 +23,8 @@ const Phone = ({ buttonStyles, targetElement, handleButtonClick, tooltipWidth, a
     left: "800px",
     borderRadius: "29px",
     background: "#00000040",
-    boxShadow: "-1.6781489849090576px 0px 4.027557849884033px -2.517223834991455px #212121 inset, 0px -0.8390744924545288px 3.3562979698181152px 0px #212121 inset",
+    boxShadow:
+      "-1.6781489849090576px 0px 4.027557849884033px -2.517223834991455px #212121 inset, 0px -0.8390744924545288px 3.3562979698181152px 0px #212121 inset",
     border: "10px solid black",
   };
 
@@ -58,8 +59,8 @@ const Phone = ({ buttonStyles, targetElement, handleButtonClick, tooltipWidth, a
   };
 
   const centerButtonStyle = {
-    width: "76px",
-    height: "34px",
+    width: "76px", // Updated width for Button 3
+    height: "34px", // Updated height for Button 3
     padding: "8px",
     borderRadius: "4px",
     gap: "10px",
@@ -109,42 +110,39 @@ const Phone = ({ buttonStyles, targetElement, handleButtonClick, tooltipWidth, a
     ...buttonStyles.button4,
   };
 
-  const tooltipStyle = {
-    position: "absolute",
-    bottom: `-${parseInt(arrowHeightState) + 5}px`,
-    left: "50%",
-    transform: "translateX(-50%)",
-    width: "181px", // Fixed width
-    height: "31.4px", // Hug height
-    padding: "0px 0px 0px 14px", // Padding values
-    borderRadius: "3.3501803874969482px",
-    border: "0.42px solid #212121", // Border values
-    textAlign: "center",
-    display: tooltipVisible ? "block" : "none",
-    background: "#212121", // Background color
-    color: "#ffffff",
-  };
-  
-
-  // Dynamically update the notch of the tooltip
   const notchStyle = {
     position: "absolute",
     width: "0",
     height: "0",
-    bottom: `-${arrowHeightState}`,
+    bottom: "100%", // Place the arrow at the bottom of the tooltip
     left: "50%",
     transform: "translateX(-50%)",
-    borderBottom: `${arrowHeightState} solid #000000`,
-    borderLeft: `${arrowWidthState} solid transparent`,
-    borderRight: `${arrowWidthState} solid transparent`,
+    borderBottom: `${arrowHeight} solid #000000`, // Use borderBottom for the arrow pointing upwards
+    borderLeft: `${arrowWidth} solid transparent`,
+    borderRight: `${arrowWidth} solid transparent`,
   };
-
-  // Update tooltip arrow size and arrow width when form inputs change
-  useEffect(() => {
-    setTooltipWidth(tooltipWidth);
-    setArrowWidth(arrowWidth);
-    setArrowHeight(arrowHeight);
-  }, [tooltipWidth, arrowWidth, arrowHeight]);
+  
+  
+  const tooltipContainerStyle = {
+    position: "relative",
+    marginTop: "5px", // Adjust the margin to create space between the tooltip and button
+  };
+  
+  const tooltipStyle = {
+    width: tooltipWidth,
+    padding: "0px 0px 0px 14px",
+    borderRadius: "3.3501803874969482px",
+    background: "#212121",
+    color: "#ffffff",
+    textAlign: "center",
+    display: tooltipVisible ? "block" : "none",
+    border: "0.42px solid #212121",
+    position: "absolute",
+    top: "100%", // Attach the tooltip to the bottom of the button
+    left: "50%",
+    transform: "translateX(-50%)",
+  };
+  
 
   return (
     <div>
@@ -163,9 +161,11 @@ const Phone = ({ buttonStyles, targetElement, handleButtonClick, tooltipWidth, a
             >
               <span style={buttonTextStyles}>Button 1</span>
               {targetElement === "button1" && (
-                <div>
-                  <div style={notchStyle}></div>
-                  <div style={{ ...tooltipStyle }}>{tooltipText}</div>
+                <div style={tooltipContainerStyle}>
+                  <div style={{ ...tooltipStyle }}>
+                    <div style={notchStyle}></div> {/* Move the notch to the bottom */}
+                    {tooltipText}
+                  </div>
                 </div>
               )}
             </button>
@@ -181,9 +181,11 @@ const Phone = ({ buttonStyles, targetElement, handleButtonClick, tooltipWidth, a
             >
               <span style={buttonTextStyles}>Button 2</span>
               {targetElement === "button2" && (
-                <div>
-                  <div style={notchStyle}></div>
-                  <div style={{ ...tooltipStyle }}>{tooltipText}</div>
+                <div style={tooltipContainerStyle}>
+                  <div style={{ ...tooltipStyle }}>
+                    <div style={notchStyle}></div> {/* Move the notch to the bottom */}
+                    {tooltipText}
+                  </div>
                 </div>
               )}
             </button>
@@ -199,9 +201,11 @@ const Phone = ({ buttonStyles, targetElement, handleButtonClick, tooltipWidth, a
             >
               <span style={buttonTextStyles}>Button 3</span>
               {targetElement === "button3" && (
-                <div>
-                  <div style={notchStyle}></div>
-                  <div style={{ ...tooltipStyle }}>{tooltipText}</div>
+                <div style={tooltipContainerStyle}>
+                  <div style={{ ...tooltipStyle }}>
+                    <div style={notchStyle}></div> {/* Move the notch to the bottom */}
+                    {tooltipText}
+                  </div>
                 </div>
               )}
             </button>
@@ -217,9 +221,11 @@ const Phone = ({ buttonStyles, targetElement, handleButtonClick, tooltipWidth, a
             >
               <span style={buttonTextStyles}>Button 4</span>
               {targetElement === "button4" && (
-                <div>
-                  <div style={notchStyle}></div>
-                  <div style={{ ...tooltipStyle }}>{tooltipText}</div>
+                <div style={tooltipContainerStyle}>
+                  <div style={{ ...tooltipStyle }}>
+                    <div style={notchStyle}></div> {/* Move the notch to the bottom */}
+                    {tooltipText}
+                  </div>
                 </div>
               )}
             </button>
@@ -235,9 +241,11 @@ const Phone = ({ buttonStyles, targetElement, handleButtonClick, tooltipWidth, a
             >
               <span style={buttonTextStyles}>Button 5</span>
               {targetElement === "button5" && (
-                <div>
-                  <div style={notchStyle}></div>
-                  <div style={{ ...tooltipStyle }}>{tooltipText}</div>
+                <div style={tooltipContainerStyle}>
+                  <div style={{ ...tooltipStyle }}>
+                    <div style={notchStyle}></div> {/* Move the notch to the bottom */}
+                    {tooltipText}
+                  </div>
                 </div>
               )}
             </button>
