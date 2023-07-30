@@ -14,17 +14,7 @@ const Form = ({
   handleInputChange,
 }) => {
   return (
-    <div
-      className="form-container"
-      style={{
-        margin: "20px 30px",
-        width: "643px",
-        height: "612px",
-        border: "1px solid #00000026",
-        padding: "20px",
-      }}
-    >
-      <h2>Tooltip Configuration</h2>
+    <div className="form-container" style={{ margin: "20px 30px", width: "643px", height: "612px", border: "1px solid #00000026", padding: "20px" }}>
       <form>
         <div className="form-group">
           <label htmlFor="targetElement">Target Element:</label>
